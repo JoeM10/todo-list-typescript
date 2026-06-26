@@ -17,3 +17,11 @@ export interface TaskFormErrors {
     title?: string;
     description?: string;
 }
+
+export interface Auth0UserProfile {
+    name?: string;
+    email?: string;
+    picture?: string;
+    nickname?: string;
+    sub?: string;
+}

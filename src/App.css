@@ -205,6 +205,10 @@ button.danger {
   margin-bottom: 2rem;
 }
 
+.page-header h1 {
+  color: #222;
+}
+
 .button-link {
   display: inline-block;
   text-decoration: none;
@@ -216,6 +220,70 @@ button.danger {
 
 .secondary-link {
   background-color: #64748b;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.auth-card h1 {
+  margin-top: 0;
+  color: #222;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.welcome-message {
+  margin-top: 0.75rem;
+  font-weight: bold;
+}
+
+.profile-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card h2 {
+  color: #222;
+}
+
+.profile-image {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+@media (max-width: 700px) {
+  .profile-card {
+    flex-direction: column;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
 }
 
 @media (max-width: 700px) {

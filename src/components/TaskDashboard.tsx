@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Task, TaskStatus } from "../types";
 import TaskDetails from "./TaskDetails";
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "./LogoutButton";
 
 interface TaskDashboardProps {
 	tasks: Task[];
@@ -16,6 +18,8 @@ function TaskDashboard({
 }: TaskDashboardProps) {
 
 	const navigate = useNavigate();
+
+	const { user } = useAuth0();
 
 	const [selectedTaskId, setSelectedTaskId] = useState<number | null> (null);
 
@@ -48,11 +52,21 @@ function TaskDashboard({
 				<div>
 					<h1>Task Dashboard</h1>
 					<p>Manage your tasks by viewing, editing, and deleting them.</p>
+
+					{user?.name && <p className="welcome-message">Welcome, {user.name}</p>}
 				</div>
 
-				<Link className="button-link" to="/tasks/new">
-					Create New Task
-				</Link>
+				<div className="header-actions">
+					<Link className="button-link" to="/tasks/new">
+						Create New Task
+					</Link>
+
+					<Link className="button-link secondary-link" to="/profile">
+						Profile
+					</Link>
+
+					<LogoutButton />
+				</div>
 			</section>
 
 			<section className="task-list">

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import TaskDashboard from "./components/TaskDashboard";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import EditTaskPage from "./pages/EditTaskPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 import type { Task, TaskFormData, TaskStatus } from "./types";
 import "./App.css";
 
@@ -63,25 +67,46 @@ function App() {
 	return (
 		<BrowserRouter>
 		<Routes>
+			<Route path="/login" element={ <LoginPage />} />
+			<Route path="/register" element={ <RegisterPage />} />
 			<Route
 				path="/"
 				element={
-					<TaskDashboard
-						tasks={tasks}
-						onDeleteTask={handleDeleteTask}
-						onStatusChange={handleStatusChange}
-					/>
+					<ProtectedRoute>
+						<TaskDashboard
+							tasks={tasks}
+							onDeleteTask={handleDeleteTask}
+							onStatusChange={handleStatusChange}
+						/>
+					</ProtectedRoute>
 				}
 			/>
 
 			<Route
 				path="/tasks/new"
-				element={<CreateTaskPage onCreateTask={handleCreateTask}/>}
+				element={
+					<ProtectedRoute>
+						<CreateTaskPage onCreateTask={handleCreateTask}/>
+					</ProtectedRoute>
+				}
 			/>
 
 			<Route
 				path="/tasks/:taskId/edit"
-				element={<EditTaskPage tasks={tasks} onUpdateTask={handleUpdateTask}/>}
+				element={
+					<ProtectedRoute>
+						<EditTaskPage tasks={tasks} onUpdateTask={handleUpdateTask}/>
+					</ProtectedRoute>
+				}
+			/>
+
+			<Route
+				path="/profile"
+				element={
+					<ProtectedRoute>
+						<ProfilePage />
+					</ProtectedRoute>
+				}
 			/>
 		</Routes>
 		</BrowserRouter>
