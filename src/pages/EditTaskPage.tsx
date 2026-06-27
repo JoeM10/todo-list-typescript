@@ -1,15 +1,12 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import TaskForm from "../components/TaskForm";
-import type { Task, TaskFormData } from "../types";
+import { useTaskContext } from "../context/TaskContext";
+import type { TaskFormData } from "../types";
 
-interface EditTaskPageProps {
-    tasks: Task[];
-    onUpdateTask: (taskId: number, formData: TaskFormData) => void;
-};
-
-function EditTaskPage({ tasks, onUpdateTask }: EditTaskPageProps) {
+function EditTaskPage() {
     const navigate = useNavigate();
     const { taskId } = useParams();
+    const { tasks, updateTask } = useTaskContext();
 
     const numericTaskId = Number(taskId);
 
@@ -35,7 +32,7 @@ function EditTaskPage({ tasks, onUpdateTask }: EditTaskPageProps) {
     };
 
     const handleUpdateTask = (formData: TaskFormData) => {
-        onUpdateTask(taskToEdit.id, formData);
+        updateTask(taskToEdit.id, formData);
         navigate("/");
     };
 

@@ -1,13 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import TaskForm from "../components/TaskForm";
+import { useTaskContext } from "../context/TaskContext";
 import type { TaskFormData } from "../types";
 
-interface CreateTaskPageProps {
-    onCreateTask: (formData: TaskFormData) => void;
-};
-
-function CreateTaskPage({ onCreateTask }: CreateTaskPageProps) {
+function CreateTaskPage() {
     const navigate = useNavigate();
+    const { createTask } = useTaskContext();
 
     const initialValues: TaskFormData = {
         title: "",
@@ -16,7 +14,7 @@ function CreateTaskPage({ onCreateTask }: CreateTaskPageProps) {
     };
 
     const handleCreateTask = (formData: TaskFormData) => {
-        onCreateTask(formData);
+        createTask(formData);
         navigate("/");
     };
 

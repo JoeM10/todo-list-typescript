@@ -1,24 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import type { Task, TaskStatus } from "../types";
-import TaskDetails from "./TaskDetails";
 import { useAuth0 } from "@auth0/auth0-react";
+import type { Task } from "../types";
+import { useTaskContext } from "../context/TaskContext";
+import TaskDetails from "./TaskDetails";
 import LogoutButton from "./LogoutButton";
 
-interface TaskDashboardProps {
-	tasks: Task[];
-	onDeleteTask: (taskId: number) => void;
-	onStatusChange: (taskId: number, newStatus: TaskStatus) => void;
-};
-
-function TaskDashboard({
-	tasks,
-	onDeleteTask,
-	onStatusChange,
-}: TaskDashboardProps) {
-
+function TaskDashboard() {
 	const navigate = useNavigate();
-
+	const { tasks, deleteTask, changeTaskStatus } = useTaskContext();
 	const { user } = useAuth0();
 
 	const [selectedTaskId, setSelectedTaskId] = useState<number | null> (null);
@@ -39,11 +29,11 @@ function TaskDashboard({
 	};
 
 	const handleDelete = (taskId: number) => {
-		onDeleteTask(taskId);
+		deleteTask(taskId);
 
 		if (selectedTaskId === taskId) {
 			setSelectedTaskId(null);
-		};
+		}
 	};
 
 	return (
@@ -78,7 +68,7 @@ function TaskDashboard({
 						onClose={handleCloseDetails}
 						onEdit={handleEdit}
 						onDelete={handleDelete}
-						onStatusChange={onStatusChange}
+						onStatusChange={changeTaskStatus}
 					/>
 				)}
 
